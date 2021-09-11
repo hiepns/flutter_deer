@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_deer/res/resources.dart';
 import 'package:flutter_deer/routers/fluro_navigator.dart';
@@ -8,11 +7,11 @@ import 'package:flutter_deer/widgets/my_button.dart';
 class GoodsDeleteBottomSheet extends StatelessWidget {
   
   const GoodsDeleteBottomSheet({
-    Key key,
-    @required this.onTapDelete,
+    Key? key,
+    required this.onTapDelete,
   }): super(key: key);
 
-  final Function onTapDelete;
+  final VoidCallback onTapDelete;
   
   @override
   Widget build(BuildContext context) {

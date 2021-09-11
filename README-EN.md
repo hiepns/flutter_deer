@@ -24,7 +24,7 @@ The effect of some pages is as follows:
 ## Content
 
 * mvp mode
-* Use `provider`(version 5.x) for state management
+* Use `provider`(version 6.x) for state management
 * Network request encapsulation based on `dio` (version 4.x)
 * Driver testing, accessibility testing.
 * Support dark mode
@@ -59,9 +59,9 @@ Web：https://simplezhli.github.io/flutter_deer/
 
 [![Build Status](https://github.com/simplezhli/flutter_deer/workflows/flutter_deer%20driver/badge.svg?branch=master)](https://github.com/simplezhli/flutter_deer/actions?query=workflow%3A%22flutter_deer+driver%22+branch%3Amaster)
 
-    1. Flutter version 2.0.4
+    1. Flutter version 2.5.0
 
-    2. Dart version 2.12.2
+    2. Dart version 2.14.0
 
 ## Precautions
 
@@ -75,7 +75,7 @@ Web：https://simplezhli.github.io/flutter_deer/
 
 - I have added a relative path to the design drawings in the page notes. I can search or find the corresponding page. I hope it will help you.
 
-- This project uses the FlutterJsonBeanFactory plugin to generate beans. 
+- This project uses the [FlutterJsonBeanFactory](https://github.com/zhangruiyu/FlutterJsonBeanFactory) plugin to generate beans.
 
 ## Summary of experience
 
@@ -137,6 +137,7 @@ Web：https://simplezhli.github.io/flutter_deer/
 | [sprintf](https://github.com/Naddiseo/dart-sprintf)                   | **Format String**   |
 | [qr_code_scanner](https://github.com/juliuscanute/qr_code_scanner)     | **Scan code** |
 | [intl](https://github.com/dart-lang/intl)     | **Localization** |
+| [device_info_plus](https://github.com/fluttercommunity/plus_plugins/tree/main/packages/device_info_plus)     | **Device info** |
 | [vibration](https://github.com/benjamindean/flutter_vibration)     | **Vibration** |
 | [lottie](https://github.com/xvrh/lottie-flutter)     | **lottie** |
 
@@ -146,7 +147,9 @@ For details, please refer to the [pubspec.yaml](https://github.com/simplezhli/fl
 
 * [x] Web support.
 
-* [ ] Migrate to null-safety.
+* [x] Migrate to null-safety.
+
+* [ ] Migrate to Navigator 2.0.
 
 ## Thanks For
 

@@ -1,4 +1,3 @@
-
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -7,8 +6,8 @@ import 'package:flutter_deer/statistics/widgets/selected_date.dart';
 import 'package:flutter_deer/util/date_utils.dart' as date;
 import 'package:flutter_deer/util/image_utils.dart';
 import 'package:flutter_deer/util/theme_utils.dart';
-import 'package:flutter_deer/widgets/my_app_bar.dart';
 import 'package:flutter_deer/widgets/load_image.dart';
+import 'package:flutter_deer/widgets/my_app_bar.dart';
 import 'package:flutter_deer/widgets/my_card.dart';
 import 'package:flutter_deer/widgets/pie_chart/pie_chart.dart';
 import 'package:flutter_deer/widgets/pie_chart/pie_data.dart';
@@ -16,7 +15,7 @@ import 'package:flutter_deer/widgets/pie_chart/pie_data.dart';
 /// design/5统计/index.html#artboard11
 class GoodsStatisticsPage extends StatefulWidget {
 
-  const GoodsStatisticsPage({Key key}) : super(key: key);
+  const GoodsStatisticsPage({Key? key}) : super(key: key);
 
   @override
   _GoodsStatisticsPageState createState() => _GoodsStatisticsPageState();
@@ -24,7 +23,7 @@ class GoodsStatisticsPage extends StatefulWidget {
 
 class _GoodsStatisticsPageState extends State<GoodsStatisticsPage> {
 
-  DateTime _initialDay;
+  late DateTime _initialDay;
   int _selectedIndex = 2;
   /// false 待配货 true 已配货
   bool _type = false;

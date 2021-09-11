@@ -11,7 +11,7 @@ import 'package:flutter_deer/demo/overlay/route/application.dart';
 /// 本例包含自定义BottomNavigationBar，路由监听及Overlay悬浮用法。
 class OverlayDemoPage extends StatefulWidget {
 
-  const OverlayDemoPage({Key key}) : super(key: key);
+  const OverlayDemoPage({Key? key}) : super(key: key);
 
   @override
   _OverlayDemoPageState createState() => _OverlayDemoPageState();
@@ -19,17 +19,17 @@ class OverlayDemoPage extends StatefulWidget {
 
 class _OverlayDemoPageState extends State<OverlayDemoPage> {
 
-  OverlayEntry _overlayEntry;
+  OverlayEntry? _overlayEntry;
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       _overlayEntry = OverlayEntry(
         builder: (context) => _buildBottomNavigation(context),
       );
       /// 添加悬浮
-      Overlay.of(context).insert(_overlayEntry);
+      Overlay.of(context)?.insert(_overlayEntry!);
     });
   }
   
@@ -83,9 +83,10 @@ class _OverlayDemoPageState extends State<OverlayDemoPage> {
           isShowIndicator: Application.navigatorObserver.list.isEmpty,
           selectedCallback: (position) {
             /// 返回主页
-            Application.navigatorObserver.list.forEach((route) {
+            void removeRoute(Route route) {
               Navigator.removeRoute(context, route);
-            });
+            }
+            Application.navigatorObserver.list.forEach(removeRoute);
             /// 手动清空
             Application.navigatorObserver.list = [];
           },

@@ -10,7 +10,6 @@ import 'page/goods_search_page.dart';
 import 'page/goods_size_edit_page.dart';
 import 'page/goods_size_page.dart';
 
-
 class GoodsRouter implements IRouterProvider{
 
   static String goodsPage = '/goods';
