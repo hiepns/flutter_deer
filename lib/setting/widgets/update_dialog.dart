@@ -1,13 +1,13 @@
-
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flustars/flustars.dart';
+import 'package:flustars_flutter3/flustars_flutter3.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_deer/res/resources.dart';
 import 'package:flutter_deer/routers/fluro_navigator.dart';
 import 'package:flutter_deer/util/image_utils.dart';
+import 'package:flutter_deer/util/other_utils.dart';
 import 'package:flutter_deer/util/theme_utils.dart';
 import 'package:flutter_deer/util/toast_utils.dart';
 import 'package:flutter_deer/util/version_utils.dart';
@@ -16,7 +16,7 @@ import 'package:flutter_deer/widgets/my_button.dart';
 
 class UpdateDialog extends StatefulWidget {
 
-  const UpdateDialog({Key key}) : super(key: key);
+  const UpdateDialog({super.key});
 
   @override
   _UpdateDialogState createState() => _UpdateDialogState();
@@ -39,11 +39,8 @@ class _UpdateDialogState extends State<UpdateDialog> {
   @override
   Widget build(BuildContext context) {
     final Color primaryColor = Theme.of(context).primaryColor;
-    return WillPopScope(
-      onWillPop: () async {
-        /// 使用false禁止返回键返回，达到强制升级目的
-        return true;
-      },
+    return PopScope(
+      canPop: false, /// 使用false禁止返回键返回，达到强制升级目的
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.transparent,
@@ -154,7 +151,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
       setInitDir(initStorageDir: true);
       await DirectoryUtil.getInstance();
       DirectoryUtil.createStorageDirSync(category: 'Download');
-      final String path = DirectoryUtil.getStoragePath(fileName: 'deer', category: 'Download', format: 'apk');
+      final String path = DirectoryUtil.getStoragePath(fileName: 'deer', category: 'Download', format: 'apk').nullSafe;
       final File file = File(path);
       /// 链接可能会失效
       await Dio().download('http://imtt.dd.qq.com/16891/apk/FF9625F40FD26F015F4CDED37B6B66AE.apk',
@@ -175,7 +172,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
       );
     } catch (e) {
       Toast.show('下载失败!');
-      print(e);
+      debugPrint(e.toString());
       setState(() {
         _isDownload = false;
       });

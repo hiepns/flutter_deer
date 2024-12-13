@@ -1,8 +1,8 @@
-
 import 'dart:io';
 
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_deer/res/resources.dart';
 import 'package:flutter_deer/util/device_utils.dart';
 import 'package:flutter_deer/util/image_utils.dart';
@@ -13,14 +13,14 @@ import 'package:image_picker/image_picker.dart';
 class SelectedImage extends StatefulWidget {
 
   const SelectedImage({
-    Key key,
+    super.key,
     this.url,
     this.heroTag,
     this.size = 80.0,
-  }): super(key: key);
+  });
 
-  final String url;
-  final String heroTag;
+  final String? url;
+  final String? heroTag;
   final double size;
 
   @override
@@ -30,18 +30,18 @@ class SelectedImage extends StatefulWidget {
 class SelectedImageState extends State<SelectedImage> {
 
   final ImagePicker _picker = ImagePicker();
-  ImageProvider _imageProvider;
-  PickedFile pickedFile;
+  ImageProvider? _imageProvider;
+  XFile? pickedFile;
 
   Future<void> _getImage() async {
     try {
-      pickedFile = await _picker.getImage(source: ImageSource.gallery, maxWidth: 800);
+      pickedFile = await _picker.pickImage(source: ImageSource.gallery, maxWidth: 800);
       if (pickedFile != null) {
 
         if (Device.isWeb) {
-          _imageProvider = NetworkImage(pickedFile.path);
+          _imageProvider = NetworkImage(pickedFile!.path);
         } else {
-          _imageProvider = FileImage(File(pickedFile.path));
+          _imageProvider = FileImage(File(pickedFile!.path));
         }
 
       } else {
@@ -51,14 +51,17 @@ class SelectedImageState extends State<SelectedImage> {
 
       });
     } catch (e) {
-      Toast.show('没有权限，无法打开相册！');
+      if (e is MissingPluginException) {
+        Toast.show('当前平台暂不支持！');
+      } else {
+        Toast.show('没有权限，无法打开相册！');
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // color为null时，Web报错NoSuchMethodError: invalid member on null: 'red' （2.0.3），因此这里指定色值。
-    final ColorFilter _colorFilter = ColorFilter.mode(
+    final ColorFilter colorFilter = ColorFilter.mode(
         ThemeUtils.isDark(context) ? Colours.dark_unselected_item_color : Colours.text_gray,
         BlendMode.srcIn
     );
@@ -72,13 +75,13 @@ class SelectedImageState extends State<SelectedImage> {
         image: DecorationImage(
             image: _imageProvider ?? ImageUtils.getImageProvider(widget.url, holderImg: 'store/icon_zj'),
             fit: BoxFit.cover,
-            colorFilter: _imageProvider == null && TextUtil.isEmpty(widget.url) ? _colorFilter : null
+            colorFilter: _imageProvider == null && TextUtil.isEmpty(widget.url) ? colorFilter : null
         ),
       ),
     );
 
     if (widget.heroTag != null && !Device.isWeb) {
-      image = Hero(tag: widget.heroTag, child: image);
+      image = Hero(tag: widget.heroTag!, child: image);
     }
 
     return Semantics(
@@ -92,4 +95,3 @@ class SelectedImageState extends State<SelectedImage> {
     );
   }
 }
-
